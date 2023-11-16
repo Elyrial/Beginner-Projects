@@ -27,6 +27,17 @@ bool checkIfLegal(int userInput, char Board[3][3]) {
     }
 }
 
+bool checkForDraw(char Board[3][3]) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (Board[i][j] == ' ') {
+                return false; // If any empty space is found, the game is not a draw
+            }
+        }
+    }
+    return true; // All spaces are filled, indicating a draw
+} 
+
 bool checkForWin(char Board[3][3]) {
     // Check rows and columns
     for (int i = 0; i < 3; i++) {
@@ -85,21 +96,7 @@ int main() {
             break;
         }
 
-        // Check for a draw
-        bool draw = true;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (Board[i][j] == ' ') {
-                    draw = false;
-                    break;
-                }
-            }
-            if (!draw) {
-                break;
-            }
-        }
-
-        if (draw) {
+        if (checkForDraw(Board)) {
             displayBoard(Board);
             cout << "It's a draw!\n";
             break;
